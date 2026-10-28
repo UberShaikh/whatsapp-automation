@@ -1,0 +1,1115 @@
+{
+  "schema_version": 1,
+  "dataset_id": "indian-household-groceries-demo-v1",
+  "prepared_on": "2026-10-28",
+  "usage": "development_and_staging_only",
+  "import_policy": "manual_preview_then_explicit_apply_never_on_startup",
+  "currency": "INR",
+  "stock_location_code": "DEMO-STORE",
+  "source_retailer": "bigbasket",
+  "price_notice": "Demo prices are illustrative, largely based on retrieved retailer references. References may be cached and location-dependent; they are not live store prices.",
+  "stock_notice": "Every opening-stock quantity is invented demo data in sellable packs, including zero and one-unit cases. No real store inventory is asserted.",
+  "tax_notice": "No tax rates, HSN codes or production tax settings have been inferred. Do not activate production checkout from these values.",
+  "image_notice": "External image URLs linked from real product pages; no images downloaded or uploaded. Public accessibility does not establish a reuse license or guarantee hotlink availability. Three image fetches failed; fall back to text-only product details, never a retailer redirect.",
+  "products": [
+    {
+      "sku": "RICE-IG-CLASSIC-1KG",
+      "name": "Classic Basmati Rice",
+      "brand": "India Gate",
+      "category_path": [
+        "Foodgrains",
+        "Rice"
+      ],
+      "pack_quantity": 1,
+      "pack_unit": "kg",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "251.00",
+      "demo_opening_stock_packs": 24,
+      "aliases": [
+        "rice",
+        "chawal",
+        "basmati"
+      ],
+      "source_product_id": "243336",
+      "source_product_name": "India Gate Basmati Rice/Basmati Akki - Classic, 1 kg",
+      "source_url": "https://www.bigbasket.com/pd/243336/india-gate-basmati-rice-classic-1-kg-pouch/",
+      "source_price_inr": "251.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": "273.00",
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/243336_7-india-gate-basmati-rice-classic.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/243336/india-gate-basmati-rice-classic-1-kg-pouch/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": []
+    },
+    {
+      "sku": "DAL-TS-CHANA-1KG",
+      "name": "Unpolished Chana Dal",
+      "brand": "Tata Sampann",
+      "category_path": [
+        "Foodgrains",
+        "Dals and Pulses"
+      ],
+      "pack_quantity": 1,
+      "pack_unit": "kg",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "137.00",
+      "demo_opening_stock_packs": 30,
+      "aliases": [
+        "chana dal",
+        "bengal gram"
+      ],
+      "source_product_id": "40000290",
+      "source_product_name": "Tata Sampann Unpolished Chana Dal, 1 kg",
+      "source_url": "https://www.bigbasket.com/pd/40000290/tata-sampann-unpolished-chana-dal-1-kg-pouch/",
+      "source_price_inr": "137.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": "161.00",
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/40000290_12-tata-sampann-unpolished-chana-dal.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/40000290/tata-sampann-unpolished-chana-dal-1-kg-pouch/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": [
+        "Selected the 1 kg variant shown on the page, rather than the 500 g search request."
+      ]
+    },
+    {
+      "sku": "PULSE-TS-KABULI-500G",
+      "name": "Unpolished Kabuli Chana - Medium Size",
+      "brand": "Tata Sampann",
+      "category_path": [
+        "Foodgrains",
+        "Dals and Pulses"
+      ],
+      "pack_quantity": 500,
+      "pack_unit": "g",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "79.00",
+      "demo_opening_stock_packs": 18,
+      "aliases": [
+        "kabuli chana",
+        "chole",
+        "chickpeas"
+      ],
+      "source_product_id": "40296060",
+      "source_product_name": "Tata Sampann Unpolished Kabuli Chana - Medium Size, 500 g",
+      "source_url": "https://www.bigbasket.com/pd/40296060/tata-sampann-kabuli-chana-unpolished-medium-size-500-g/",
+      "source_price_inr": "79.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": "85.00",
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/40296060_8-tata-sampann-kabuli-chana-unpolished-medium-size.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/40296060/tata-sampann-kabuli-chana-unpolished-medium-size-500-g/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": []
+    },
+    {
+      "sku": "SPICE-TS-HALDI-100G",
+      "name": "Turmeric Powder",
+      "brand": "Tata Sampann",
+      "category_path": [
+        "Foodgrains",
+        "Spices"
+      ],
+      "pack_quantity": 100,
+      "pack_unit": "g",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "44.00",
+      "demo_opening_stock_packs": 36,
+      "aliases": [
+        "haldi",
+        "turmeric"
+      ],
+      "source_product_id": "40070758",
+      "source_product_name": "Tata Sampann Turmeric/Haldi Powder With Natural Oils, 100 g",
+      "source_url": "https://www.bigbasket.com/pd/40070758/tata-sampann-turmeric-powder-100-g/",
+      "source_price_inr": "44.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": "50.00",
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/40070758_19-tata-sampann-turmeric-powder.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/40070758/tata-sampann-turmeric-powder-100-g/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": []
+    },
+    {
+      "sku": "SPICE-EV-TIKHALAL-100G",
+      "name": "Tikhalal Chilli Powder",
+      "brand": "Everest",
+      "category_path": [
+        "Foodgrains",
+        "Spices"
+      ],
+      "pack_quantity": 100,
+      "pack_unit": "g",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "54.00",
+      "demo_opening_stock_packs": 25,
+      "aliases": [
+        "lal mirch",
+        "chilli powder"
+      ],
+      "source_product_id": "242311",
+      "source_product_name": "Everest Tikhalal Chilli Powder, 100 g Pouch",
+      "source_url": "https://www.bigbasket.com/pd/242311/everest-powder-tikhalal-hot-chilly-100-g-pouch/",
+      "source_price_inr": "54.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": null,
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/242311_3-everest-powder-tikhalal-hot-chilly.jpg\",\"lineno\":null}",
+      "image_source_url": "https://www.bigbasket.com/pd/242311/everest-powder-tikhalal-hot-chilly-100-g-pouch/",
+      "image_check_status": "source_link_only_fetch_failed",
+      "source_checked_on": "2026-10-28",
+      "notes": [
+        "Image URL was extracted from the source page, but research-tool retrieval failed; fall back to text-only product details without external links."
+      ]
+    },
+    {
+      "sku": "SPICE-EV-DHANIA-100G",
+      "name": "Coriander Powder",
+      "brand": "Everest",
+      "category_path": [
+        "Foodgrains",
+        "Spices"
+      ],
+      "pack_quantity": 100,
+      "pack_unit": "g",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "35.00",
+      "demo_opening_stock_packs": 0,
+      "aliases": [
+        "dhania powder",
+        "coriander"
+      ],
+      "source_product_id": "225304",
+      "source_product_name": "Everest Powder - Coriander, 100 g Pouch",
+      "source_url": "https://www.bigbasket.com/pd/225304/everest-powder-coriander-100-g-pouch/",
+      "source_price_inr": null,
+      "source_price_status": "not_available",
+      "source_mrp_inr": null,
+      "source_availability": "unavailable",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/225304_3-everest-powder-coriander.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/225304/everest-powder-coriander-100-g-pouch/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": [
+        "Source page is currently unavailable and has no price; demo price is illustrative."
+      ]
+    },
+    {
+      "sku": "SPICE-EV-GARAM-100G",
+      "name": "Garam Masala",
+      "brand": "Everest",
+      "category_path": [
+        "Foodgrains",
+        "Spices"
+      ],
+      "pack_quantity": 100,
+      "pack_unit": "g",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "88.00",
+      "demo_opening_stock_packs": 20,
+      "aliases": [
+        "garam masala"
+      ],
+      "source_product_id": "268943",
+      "source_product_name": "Everest Garam Masala, 100 g Carton",
+      "source_url": "https://www.bigbasket.com/pd/268943/everest-garam-masala-100-g-carton/",
+      "source_price_inr": "88.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": null,
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/268943_4-everest-garam-masala.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/268943/everest-garam-masala-100-g-carton/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": []
+    },
+    {
+      "sku": "GHEE-AMUL-500ML",
+      "name": "Ghee",
+      "brand": "Amul",
+      "category_path": [
+        "Foodgrains",
+        "Oils and Ghee"
+      ],
+      "pack_quantity": 500,
+      "pack_unit": "ml",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "322.00",
+      "demo_opening_stock_packs": 12,
+      "aliases": [
+        "ghee",
+        "desi ghee"
+      ],
+      "source_product_id": "40050541",
+      "source_product_name": "Amul Ghee/Tuppa, 500 ml Pouch",
+      "source_url": "https://www.bigbasket.com/pd/40050541/amul-amul-ghee-500-ml-500-ml-pouch/",
+      "source_price_inr": "322.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": "325.00",
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/40050541_6-amul-amul-ghee-500-ml.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/40050541/amul-amul-ghee-500-ml-500-ml-pouch/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": []
+    },
+    {
+      "sku": "TEA-TATA-PREMIUM-250G",
+      "name": "Leaf Tea",
+      "brand": "Tata Tea Premium",
+      "category_path": [
+        "Beverages",
+        "Tea"
+      ],
+      "pack_quantity": 250,
+      "pack_unit": "g",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "110.00",
+      "demo_opening_stock_packs": 30,
+      "aliases": [
+        "tea",
+        "chai",
+        "chai patti"
+      ],
+      "source_product_id": "264445",
+      "source_product_name": "Tata Tea Premium Desh Ki Chai, 250 g",
+      "source_url": "https://www.bigbasket.com/pd/264445/tata-tea-premium-tea-250-g/",
+      "source_price_inr": "110.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": null,
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/264445_5-tata-tea-premium-tea.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/264445/tata-tea-premium-tea-250-g/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": []
+    },
+    {
+      "sku": "COFFEE-NESCAFE-CLASSIC-45G",
+      "name": "Classic Instant Coffee",
+      "brand": "Nescafe",
+      "category_path": [
+        "Beverages",
+        "Coffee"
+      ],
+      "pack_quantity": 45,
+      "pack_unit": "g",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "230.00",
+      "demo_opening_stock_packs": 15,
+      "aliases": [
+        "coffee",
+        "instant coffee"
+      ],
+      "source_product_id": "267400",
+      "source_product_name": "Nescafe Classic Instant Coffee Powder, 45 g",
+      "source_url": "https://www.bigbasket.com/pd/267400/nescafe-classic-100-pure-instant-coffee-50-g-pouch/",
+      "source_price_inr": "230.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": null,
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/267400_14-nescafe-classic-100-pure-instant-coffee.jpg\",\"lineno\":null}",
+      "image_source_url": "https://www.bigbasket.com/pd/267400/nescafe-classic-100-pure-instant-coffee-50-g-pouch/",
+      "image_check_status": "source_link_only_fetch_failed",
+      "source_checked_on": "2026-10-28",
+      "notes": [
+        "Page states 45 g despite the old 50 g URL slug.",
+        "Image URL was extracted from the source page, but research-tool retrieval failed; fall back to text-only product details without external links."
+      ]
+    },
+    {
+      "sku": "BISCUIT-PARLE-G-250G",
+      "name": "Original Gluco Biscuits",
+      "brand": "Parle",
+      "category_path": [
+        "Snacks",
+        "Biscuits"
+      ],
+      "pack_quantity": 250,
+      "pack_unit": "g",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "25.00",
+      "demo_opening_stock_packs": 48,
+      "aliases": [
+        "parle g",
+        "glucose biscuit"
+      ],
+      "source_product_id": "20004286",
+      "source_product_name": "Parle Original Gluco Biscuits, 250 g",
+      "source_url": "https://www.bigbasket.com/pd/20004286/parle-glucos-biscuits-parle-g-250-g/",
+      "source_price_inr": "25.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": null,
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/20004286_8-parle-glucos-biscuits-parle-g.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/20004286/parle-glucos-biscuits-parle-g-250-g/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": []
+    },
+    {
+      "sku": "BISCUIT-BRIT-MARIE-250G",
+      "name": "Marie Gold Biscuits",
+      "brand": "Britannia",
+      "category_path": [
+        "Snacks",
+        "Biscuits"
+      ],
+      "pack_quantity": 250,
+      "pack_unit": "g",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "37.00",
+      "demo_opening_stock_packs": 30,
+      "aliases": [
+        "marie",
+        "marie gold"
+      ],
+      "source_product_id": "220244",
+      "source_product_name": "Britannia Marie Gold Biscuits, 250 g",
+      "source_url": "https://www.bigbasket.com/pd/220244/britannia-marie-gold-biscuits-250-g/",
+      "source_price_inr": "37.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": "40.00",
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/220244_10-britannia-marie-gold-biscuits.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/220244/britannia-marie-gold-biscuits-250-g/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": []
+    },
+    {
+      "sku": "NOODLES-MAGGI-MASALA-70G",
+      "name": "2-Minute Instant Masala Noodles",
+      "brand": "Maggi",
+      "category_path": [
+        "Packaged Foods",
+        "Noodles"
+      ],
+      "pack_quantity": 70,
+      "pack_unit": "g",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "15.00",
+      "demo_opening_stock_packs": 60,
+      "aliases": [
+        "maggi",
+        "noodles"
+      ],
+      "source_product_id": "266160",
+      "source_product_name": "Maggi 2-Minute Instant Masala Noodles, 70 g",
+      "source_url": "https://www.bigbasket.com/pd/266160/maggi-masala-instant-noodles-vegetarian-70-g-pouch/",
+      "source_price_inr": null,
+      "source_price_status": "not_available",
+      "source_mrp_inr": null,
+      "source_availability": "not_for_sale",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/266160_33-maggi-masala-instant-noodles-vegetarian.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/266160/maggi-masala-instant-noodles-vegetarian-70-g-pouch/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": [
+        "Opened page says Not For Sale and exposes no current price; demo price is illustrative."
+      ]
+    },
+    {
+      "sku": "KETCHUP-KISSAN-500G",
+      "name": "Fresh Tomato Ketchup",
+      "brand": "Kissan",
+      "category_path": [
+        "Packaged Foods",
+        "Sauces"
+      ],
+      "pack_quantity": 500,
+      "pack_unit": "g",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "110.00",
+      "demo_opening_stock_packs": 18,
+      "aliases": [
+        "ketchup",
+        "tomato sauce"
+      ],
+      "source_product_id": "266541",
+      "source_product_name": "Kissan Fresh Tomato Ketchup, 500 g Bottle",
+      "source_url": "https://www.bigbasket.com/pd/266541/kissan-fresh-tomato-ketchup-500-g-bottle/",
+      "source_price_inr": "110.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": null,
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/266541_15-kissan-fresh-tomato-ketchup.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/266541/kissan-fresh-tomato-ketchup-500-g-bottle/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": []
+    },
+    {
+      "sku": "BUTTER-AMUL-UNSALTED-100G",
+      "name": "Unsalted Butter",
+      "brand": "Amul",
+      "category_path": [
+        "Dairy",
+        "Butter"
+      ],
+      "pack_quantity": 100,
+      "pack_unit": "g",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "48.00",
+      "demo_opening_stock_packs": 16,
+      "aliases": [
+        "butter",
+        "unsalted butter",
+        "makhan"
+      ],
+      "source_product_id": "40069116",
+      "source_product_name": "Amul Unsalted Butter, 100 g Carton",
+      "source_url": "https://www.bigbasket.com/pd/40069116/amul-unsalted-butter-100-g-carton/",
+      "source_price_inr": "48.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": null,
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/40069116_4-amul-unsalted-butter.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/40069116/amul-unsalted-butter-100-g-carton/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": []
+    },
+    {
+      "sku": "PANEER-AMUL-MALAI-200G",
+      "name": "Fresh Malai Paneer",
+      "brand": "Amul",
+      "category_path": [
+        "Dairy",
+        "Paneer"
+      ],
+      "pack_quantity": 200,
+      "pack_unit": "g",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "76.00",
+      "demo_opening_stock_packs": 10,
+      "aliases": [
+        "paneer",
+        "malai paneer"
+      ],
+      "source_product_id": "40096747",
+      "source_product_name": "Amul Fresh Malai Paneer, 200 g",
+      "source_url": "https://www.bigbasket.com/pd/40096747/amul-malai-fresh-paneer-200-g/",
+      "source_price_inr": "76.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": null,
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/40096747_11-amul-malai-fresh-paneer.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/40096747/amul-malai-fresh-paneer-200-g/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": []
+    },
+    {
+      "sku": "DISHWASH-VIM-LEMON-4X190G",
+      "name": "Lemon Dishwash Bar",
+      "brand": "Vim",
+      "category_path": [
+        "Household Care",
+        "Dishwashing"
+      ],
+      "pack_quantity": 190,
+      "pack_unit": "g",
+      "pack_count": 4,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "85.00",
+      "demo_opening_stock_packs": 24,
+      "aliases": [
+        "vim",
+        "dishwash bar",
+        "bartan soap"
+      ],
+      "source_product_id": "266969",
+      "source_product_name": "Vim Lemon Dishwash Bar, 190 g (Pack of 4)",
+      "source_url": "https://www.bigbasket.com/pd/266969/vim-dishwash-bar-lemon-200-g-wrapper/",
+      "source_price_inr": "85.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": null,
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/266969_17-vim-dishwash-bar-lemon.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/266969/vim-dishwash-bar-lemon-200-g-wrapper/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": [
+        "One sellable pack contains four 190 g bars: 760 g total; price/stock are per multipack."
+      ]
+    },
+    {
+      "sku": "DETERGENT-SURF-EASY-1KG",
+      "name": "Easy Wash Detergent Powder",
+      "brand": "Surf Excel",
+      "category_path": [
+        "Household Care",
+        "Laundry"
+      ],
+      "pack_quantity": 1,
+      "pack_unit": "kg",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "128.00",
+      "demo_opening_stock_packs": 20,
+      "aliases": [
+        "surf",
+        "washing powder",
+        "kapde powder"
+      ],
+      "source_product_id": "40101707",
+      "source_product_name": "Surf Excel Easy Wash Detergent Powder, 1 kg",
+      "source_url": "https://www.bigbasket.com/pd/40101707/surf-excel-easy-wash-detergent-powder-1-kg/",
+      "source_price_inr": "128.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": null,
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/40101707_14-surf-excel-easy-wash-detergent-powder.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/40101707/surf-excel-easy-wash-detergent-powder-1-kg/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": []
+    },
+    {
+      "sku": "TOILET-HARPIC-ORIGINAL-500ML",
+      "name": "Power Plus Original Toilet Cleaner",
+      "brand": "Harpic",
+      "category_path": [
+        "Household Care",
+        "Toilet Cleaning"
+      ],
+      "pack_quantity": 500,
+      "pack_unit": "ml",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "110.00",
+      "demo_opening_stock_packs": 15,
+      "aliases": [
+        "harpic",
+        "toilet cleaner"
+      ],
+      "source_product_id": "263754",
+      "source_product_name": "Harpic Disinfectant Toilet Cleaner - Original, Power Plus, 500 ml",
+      "source_url": "https://www.bigbasket.com/pd/263754/harpic-power-plus-disinfectant-toilet-cleaner-liquid-original-500-ml/",
+      "source_price_inr": "110.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": null,
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/263754_23-harpic-power-plus-disinfectant-toilet-cleaner-liquid-original.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/263754/harpic-power-plus-disinfectant-toilet-cleaner-liquid-original-500-ml/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": []
+    },
+    {
+      "sku": "SOAP-DETTOL-ORIGINAL-125G",
+      "name": "Original Bathing Bar Soap",
+      "brand": "Dettol",
+      "category_path": [
+        "Personal Care",
+        "Bathing Soap"
+      ],
+      "pack_quantity": 125,
+      "pack_unit": "g",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "67.00",
+      "demo_opening_stock_packs": 40,
+      "aliases": [
+        "soap",
+        "sabun",
+        "dettol soap"
+      ],
+      "source_product_id": "100008548",
+      "source_product_name": "Dettol Original Bathing Bar Soap, 125 g",
+      "source_url": "https://www.bigbasket.com/pd/100008548/dettol-original-bathing-soap-bar-with-76-tfm-protects-from-germs-125-g/",
+      "source_price_inr": "67.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": null,
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/100008548_29-dettol-original-bathing-soap-bar-with-76-tfm-protects-from-germs.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/100008548/dettol-original-bathing-soap-bar-with-76-tfm-protects-from-germs-125-g/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": []
+    },
+    {
+      "sku": "PASTE-COLGATE-STRONG-200G",
+      "name": "Strong Teeth Anticavity Toothpaste",
+      "brand": "Colgate",
+      "category_path": [
+        "Personal Care",
+        "Oral Care"
+      ],
+      "pack_quantity": 200,
+      "pack_unit": "g",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "125.00",
+      "demo_opening_stock_packs": 25,
+      "aliases": [
+        "toothpaste",
+        "colgate",
+        "paste"
+      ],
+      "source_product_id": "263921",
+      "source_product_name": "Colgate Strong Teeth Anticavity Toothpaste, 200 g",
+      "source_url": "https://www.bigbasket.com/pd/263921/colgate-strong-teeth-anticavity-toothpaste-with-amino-shakti-formula-provides-fresher-breath-200-g/",
+      "source_price_inr": "125.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": null,
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/263921_31-colgate-strong-teeth-anticavity-toothpaste-with-amino-shakti-formula-provides-fresher-breath.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/263921/colgate-strong-teeth-anticavity-toothpaste-with-amino-shakti-formula-provides-fresher-breath-200-g/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": []
+    },
+    {
+      "sku": "POHA-BBR-THICK-500G",
+      "name": "Thick Poha",
+      "brand": "bb Royal",
+      "category_path": [
+        "Foodgrains",
+        "Breakfast Grains"
+      ],
+      "pack_quantity": 500,
+      "pack_unit": "g",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "38.00",
+      "demo_opening_stock_packs": 22,
+      "aliases": [
+        "poha",
+        "aval",
+        "chivda"
+      ],
+      "source_product_id": "10000453",
+      "source_product_name": "bb Royal Poha/Avalakki/Aval/Chivda - Thick, 500 g Pouch",
+      "source_url": "https://www.bigbasket.com/pd/10000453/bb-royal-poha-avalakkiavalchivda-thick-500-g-pouch/",
+      "source_price_inr": "38.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": "50.00",
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/10000453_14-bb-royal-poha-avalakkiavalchivda-thick.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/10000453/bb-royal-poha-avalakkiavalchivda-thick-500-g-pouch/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": []
+    },
+    {
+      "sku": "VEG-FRESHO-ONION-1KG",
+      "name": "Onion",
+      "brand": "fresho!",
+      "category_path": [
+        "Fresh Produce",
+        "Vegetables"
+      ],
+      "pack_quantity": 1,
+      "pack_unit": "kg",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "76.00",
+      "demo_opening_stock_packs": 35,
+      "aliases": [
+        "onion",
+        "pyaz",
+        "pyaaz"
+      ],
+      "source_product_id": "10000148",
+      "source_product_name": "fresho! Onion, 1 kg",
+      "source_url": "https://www.bigbasket.com/pd/10000148/fresho-onion-1-kg/",
+      "source_price_inr": "76.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": "95.00",
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/10000148_35-fresho-onion.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/10000148/fresho-onion-1-kg/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": [
+        "Demo uses fixed 1 kg sellable packs, not arbitrary weighed quantities; retailer branding retained for source fidelity."
+      ]
+    },
+    {
+      "sku": "VEG-FRESHO-POTATO-NEW-1KG",
+      "name": "New Potato",
+      "brand": "fresho!",
+      "category_path": [
+        "Fresh Produce",
+        "Vegetables"
+      ],
+      "pack_quantity": 1,
+      "pack_unit": "kg",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "17.00",
+      "demo_opening_stock_packs": 40,
+      "aliases": [
+        "potato",
+        "aloo"
+      ],
+      "source_product_id": "40320936",
+      "source_product_name": "fresho! Potato - New, 1 kg",
+      "source_url": "https://www.bigbasket.com/pd/40320936/fresho-potato-fresh-crop-1-kg/",
+      "source_price_inr": "17.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": "23.75",
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/40320936_5-fresho-potato-fresh-crop.jpg\",\"lineno\":null}",
+      "image_source_url": "https://www.bigbasket.com/pd/40320936/fresho-potato-fresh-crop-1-kg/",
+      "image_check_status": "source_link_only_fetch_failed",
+      "source_checked_on": "2026-10-28",
+      "notes": [
+        "Demo uses fixed 1 kg sellable packs, not arbitrary weighed quantities; retailer branding retained for source fidelity.",
+        "Image URL was extracted from the source page, but research-tool retrieval failed; fall back to text-only product details without external links."
+      ]
+    },
+    {
+      "sku": "VEG-FRESHO-TOMATO-1KG",
+      "name": "Local Tomato",
+      "brand": "fresho!",
+      "category_path": [
+        "Fresh Produce",
+        "Vegetables"
+      ],
+      "pack_quantity": 1,
+      "pack_unit": "kg",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "50.00",
+      "demo_opening_stock_packs": 1,
+      "aliases": [
+        "tomato",
+        "tamatar"
+      ],
+      "source_product_id": "10000203",
+      "source_product_name": "fresho! Local Tomato, 1 kg",
+      "source_url": "https://www.bigbasket.com/pd/10000203/fresho-tomato-local-1-kg/",
+      "source_price_inr": "50.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": "70.00",
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/10000203_19-fresho-tomato-local.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/10000203/fresho-tomato-local-1-kg/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": [
+        "Demo uses fixed 1 kg sellable packs, not arbitrary weighed quantities; retailer branding retained for source fidelity."
+      ]
+    },
+    {
+      "sku": "FRUIT-FRESHO-BANANA-1KG",
+      "name": "Robusta Banana",
+      "brand": "fresho!",
+      "category_path": [
+        "Fresh Produce",
+        "Fruits"
+      ],
+      "pack_quantity": 1,
+      "pack_unit": "kg",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "57.00",
+      "demo_opening_stock_packs": 0,
+      "aliases": [
+        "banana",
+        "kela"
+      ],
+      "source_product_id": "10000025",
+      "source_product_name": "fresho! Banana - Robusta, 1 kg (Approx. 6 - 8 pcs)",
+      "source_url": "https://www.bigbasket.com/pd/10000025/fresho-banana-robusta-1-kg/",
+      "source_price_inr": "57.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": "71.25",
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/10000025_32-fresho-banana-robusta.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/10000025/fresho-banana-robusta-1-kg/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": [
+        "Demo uses fixed 1 kg sellable packs, not arbitrary weighed quantities; retailer branding retained for source fidelity.",
+        "Source describes approximate 6-8 pieces per 1 kg, not a guaranteed piece count."
+      ]
+    },
+    {
+      "sku": "ATTA-AASHIRVAAD-5KG",
+      "name": "Whole Wheat Atta",
+      "brand": "Aashirvaad",
+      "category_path": [
+        "Foodgrains",
+        "Atta and Flour"
+      ],
+      "pack_quantity": 5,
+      "pack_unit": "kg",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "281.22",
+      "demo_opening_stock_packs": 20,
+      "aliases": [
+        "atta",
+        "wheat flour",
+        "gehun atta"
+      ],
+      "source_product_id": "126903",
+      "source_product_name": "Aashirvaad Atta/Godihittu - Whole Wheat, 5 kg",
+      "source_url": "https://www.bigbasket.com/pd/126903/aashirvaad-atta-whole-wheat-5-kg-pouch/",
+      "source_price_inr": "281.22",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": "314.00",
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/126903_12-aashirvaad-atta-whole-wheat.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/126903/aashirvaad-atta-whole-wheat-5-kg-pouch/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": []
+    },
+    {
+      "sku": "SALT-TATA-IODISED-1KG",
+      "name": "Vacuum Evaporated Iodised Salt",
+      "brand": "Tata Salt",
+      "category_path": [
+        "Foodgrains",
+        "Salt and Sugar"
+      ],
+      "pack_quantity": 1,
+      "pack_unit": "kg",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "28.00",
+      "demo_opening_stock_packs": 50,
+      "aliases": [
+        "salt",
+        "namak"
+      ],
+      "source_product_id": "241600",
+      "source_product_name": "Tata Salt Vacuum Evaporated Iodised Salt, 1 kg Pouch",
+      "source_url": "https://www.bigbasket.com/pd/241600/tata-salt-iodized-1-kg-pouch/",
+      "source_price_inr": "28.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": null,
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/241600_11-tata-salt-iodized.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/241600/tata-salt-iodized-1-kg-pouch/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": []
+    },
+    {
+      "sku": "OIL-FORTUNE-SUNLITE-870G",
+      "name": "Sunlite Refined Sunflower Oil",
+      "brand": "Fortune",
+      "category_path": [
+        "Foodgrains",
+        "Oils and Ghee"
+      ],
+      "pack_quantity": 870,
+      "pack_unit": "g",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "194.78",
+      "demo_opening_stock_packs": 18,
+      "aliases": [
+        "sunflower oil",
+        "cooking oil",
+        "tel"
+      ],
+      "source_product_id": "40161771",
+      "source_product_name": "Fortune Sunlite Refined Sunflower Oil, 870 g Bottle",
+      "source_url": "https://www.bigbasket.com/pd/40161771/fortune-sunflower-oil-1-l-bottle/",
+      "source_price_inr": "194.78",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": "210.00",
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/40161771_7-fortune-sunflower-oil.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/40161771/fortune-sunflower-oil-1-l-bottle/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": [
+        "Page states 870 g despite the old 1 L URL slug; do not convert mass to volume."
+      ]
+    },
+    {
+      "sku": "DAL-TS-TOOR-1KG",
+      "name": "Unpolished Toor Dal",
+      "brand": "Tata Sampann",
+      "category_path": [
+        "Foodgrains",
+        "Dals and Pulses"
+      ],
+      "pack_quantity": 1,
+      "pack_unit": "kg",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "178.00",
+      "demo_opening_stock_packs": 25,
+      "aliases": [
+        "toor dal",
+        "arhar dal",
+        "tur dal"
+      ],
+      "source_product_id": "40000291",
+      "source_product_name": "Tata Sampann Toor Dal/Togari Bele, 1 kg Pouch",
+      "source_url": "https://www.bigbasket.com/pd/40000291/tata-sampann-unpolished-toor-dalarhar-dal-1-kg-pouch/",
+      "source_price_inr": "178.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": "199.00",
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/40000291_16-tata-sampann-unpolished-toor-dalarhar-dal.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/40000291/tata-sampann-unpolished-toor-dalarhar-dal-1-kg-pouch/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": []
+    },
+    {
+      "sku": "SUGAR-BBR-SULPHURLESS-1KG",
+      "name": "Sulphurless Refined Sugar",
+      "brand": "bb Royal",
+      "category_path": [
+        "Foodgrains",
+        "Salt and Sugar"
+      ],
+      "pack_quantity": 1,
+      "pack_unit": "kg",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "60.00",
+      "demo_opening_stock_packs": 40,
+      "aliases": [
+        "sugar",
+        "chini",
+        "shakkar"
+      ],
+      "source_product_id": "10000447",
+      "source_product_name": "bb Royal Refined Sugar (Sulphurless)/Sakkare, 1 kg",
+      "source_url": "https://www.bigbasket.com/pd/10000447/bb-royal-refined-sugar-sulphurless-1-kg/",
+      "source_price_inr": "60.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": null,
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/10000447_17-bb-royal-refined-sugar-sulphurless.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/10000447/bb-royal-refined-sugar-sulphurless-1-kg/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": []
+    },
+    {
+      "sku": "DAL-TS-MOONG-500G",
+      "name": "Unpolished Split Moong Dal",
+      "brand": "Tata Sampann",
+      "category_path": [
+        "Foodgrains",
+        "Dals and Pulses"
+      ],
+      "pack_quantity": 500,
+      "pack_unit": "g",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "89.00",
+      "demo_opening_stock_packs": 1,
+      "aliases": [
+        "moong dal",
+        "yellow moong",
+        "dhuli moong"
+      ],
+      "source_product_id": "30007756",
+      "source_product_name": "Tata Sampann Moong Dal/Hesaru Bele, 500 g",
+      "source_url": "https://www.bigbasket.com/pd/30007756/tata-sampann-unpolished-moong-dal-split-500-g-pouch/",
+      "source_price_inr": "1.00",
+      "source_price_status": "rejected_anomaly",
+      "source_mrp_inr": null,
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/30007756_8-tata-sampann-unpolished-moong-dal-split.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/30007756/tata-sampann-unpolished-moong-dal-split-500-g-pouch/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": [
+        "Opened page shows an anomalous INR 1.00 price, rejected for demo pricing; INR 89.00 is illustrative and consistent with the indexed search listing."
+      ]
+    },
+    {
+      "sku": "MILK-AMUL-TAAZA-UHT-1L",
+      "name": "Taaza Homogenised Toned Milk",
+      "brand": "Amul",
+      "category_path": [
+        "Dairy",
+        "Milk"
+      ],
+      "pack_quantity": 1,
+      "pack_unit": "l",
+      "pack_count": 1,
+      "sell_unit": "pack",
+      "currency": "INR",
+      "demo_selling_price": "73.00",
+      "demo_opening_stock_packs": 24,
+      "aliases": [
+        "milk",
+        "doodh",
+        "taaza"
+      ],
+      "source_product_id": "306926",
+      "source_product_name": "Amul Taaza Homogenised Toned Milk, 1 L Tetra Pak",
+      "source_url": "https://www.bigbasket.com/pd/306926/amul-homogenised-toned-milk-1-l-carton/",
+      "source_price_inr": "73.00",
+      "source_price_status": "reference_only",
+      "source_mrp_inr": "77.00",
+      "source_availability": "not_recorded",
+      "image_url": "https://www.bbassets.com/media/uploads/p/s/306926_6-amul-homogenised-toned-milk.jpg",
+      "image_source_url": "https://www.bigbasket.com/pd/306926/amul-homogenised-toned-milk-1-l-carton/",
+      "image_check_status": "opened_by_research_tool",
+      "source_checked_on": "2026-10-28",
+      "notes": []
+    }
+  ],
+  "whatsapp_display_policy": "Never include source_url or image_source_url in customer messages or use them as buttons/redirects. image_url is for media retrieval only. On image failure use a text-only product summary; checkout remains in this store's conversation."
+}

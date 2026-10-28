@@ -13,6 +13,16 @@ stockout risk.
 > **Customer channels:** Web application and WhatsApp Business Platform\
 > **Analytics:** Demand forecasting and stockout-risk estimation
 
+> **Current implementation priority:** WhatsApp ordering first. See the
+> [WhatsApp automation implementation plan](docs/whatsapp-automation-plan.md)
+> for scope, architecture, milestones, and release gates. A researched
+> [Indian household grocery seed dataset](data/seed/README.md) is available
+> for development/staging; its manual PostgreSQL importer is implemented.
+> The 33-product demo catalog is seeded in the isolated `grocery_dev` schema.
+> Source product links are internal references and will never redirect customers
+> from WhatsApp. Product seeding will be a separate manual preview/apply
+> operation and will never run on server startup.
+
 ------------------------------------------------------------------------
 
 ## Contents
@@ -365,17 +375,16 @@ ownership and API boundaries should be maintained.
 
 ## Technology Stack
 
-The following is a proposed stack. Confirm exact framework versions and
-provider choices before treating them as final.
+The selected backend stack is Node.js, Express, and TypeScript, with
+PostgreSQL. Package versions are pinned as components are implemented.
+Frontend and analytics choices remain proposals.
 
   -----------------------------------------------------------------------
   Layer                               Proposed technology
   ----------------------------------- -----------------------------------
   Frontend                            React / Next.js with TypeScript
 
-  Backend services                    Python with FastAPI, or another
-                                      consistently selected backend
-                                      framework
+  Backend services                    Node.js + Express + TypeScript
 
   Primary database                    PostgreSQL
 
@@ -385,9 +394,8 @@ provider choices before treating them as final.
                                       messaging, or Kafka if event-stream
                                       scale requires it
 
-  ML                                  Python, pandas, scikit-learn;
-                                      model-specific libraries selected
-                                      after evaluation
+  ML                                  Deferred; runtime and libraries
+                                      selected after evaluation
 
   WhatsApp                            WhatsApp Business Platform Cloud
                                       API or approved BSP
@@ -468,8 +476,7 @@ Install the tools required by the selected implementation:
 
 -   Git
 -   Docker and Docker Compose
--   Node.js (for a TypeScript frontend, if selected)
--   Python (for Python backend/ML services, if selected)
+-   Node.js 24.12+ and npm (TypeScript backend and manual database commands)
 -   PostgreSQL client tools (optional if PostgreSQL runs in Docker)
 
 ### Setup
@@ -759,6 +766,11 @@ Critical scenarios include:
     stock reconciliation, queue replay, and database recovery.
 
 ## Implementation Roadmap
+
+The sequence below describes the broader platform dependencies. The active
+delivery sequence is WhatsApp first, supported by the minimum catalog,
+inventory, order, and staff functionality it needs; follow the
+[WhatsApp automation plan](docs/whatsapp-automation-plan.md) for that sequence.
 
 1.  **Architecture and foundation:** agree on service boundaries,
     contracts, repo setup, migrations, CI/CD, and observability.
