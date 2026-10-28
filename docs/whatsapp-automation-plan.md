@@ -1,13 +1,13 @@
 # WhatsApp automation: implementation plan
 
-Status: planning only; implementation has not started.
+Status: catalog/manual seeding complete; the first WhatsApp transport slice is implemented. Shopping/checkout and the real Meta smoke test remain pending.
 Prepared: 28 October 2026.
 
 ## 1. Objective and current position
 
 Deliver the README's grocery ordering experience through WhatsApp first. A customer sends a shopping list, resolves ambiguities, reviews exact variants and totals, explicitly confirms, and receives an order reference and fulfillment updates. Staff can intervene safely.
 
-The repository currently contains an architecture README and configuration files, with no application implementation. The README's services and commands are proposals. We will build only the commerce foundations needed for this workflow before returning to the broader platform.
+The repository has a working TypeScript manual importer, versioned PostgreSQL catalog/inventory migration and seed tests. The database contains 33 product variants, 33 current prices and 792 demo sellable packs in `grocery_dev`. Express, verified webhook intake, the durable inbox/outbox, worker, basic greeting/help/opt-out replies, support pause and delivery-status handling are implemented; see the [setup and operating guide](whatsapp-setup.md). Real Meta account credentials and HTTPS callback configuration are not present, so real delivery is unverified. Catalog shopping, carts, orders and authenticated staff controls remain next. Seeding is finished and is not part of server startup.
 
 **Current stage:** the manual seeding foundation is implemented; the WhatsApp application has not started. At the user's subsequent request, a researched [Indian household grocery starter dataset and manual importer](../data/seed/README.md) are available for development/staging in an isolated `grocery_dev` PostgreSQL schema, with internal source references, external media URLs and explicitly invented demo stock. The user's later sheet can replace it after mapping and review. Product seeding must be an explicit manual operation; it must never run during application startup, worker startup, deployment, or schema migration.
 
@@ -28,11 +28,13 @@ The repository currently contains an architecture README and configuration files
 
 These are proposed defaults, not confirmed business facts. English text and fixed sellable packs are the initial supported inputs. Unresolved free-form requests go through clarification or staff. If Hindi/Hinglish, loose weighed goods, online payment or formal invoices are required for the pilot, bring the relevant work into scope before launch.
 
+Existing aliases such as `atta`, `chawal`, `namak` and `doodh` can be recognized immediately. That does not imply general Hindi/Hinglish sentence understanding. Start with deterministic parsing and no language-model dependency; evaluate actual failed requests before adding one.
+
 The first pilot is not the entire README delivered: automated payment links and PDF invoices remain a defined follow-on milestone. Never label an order summary as a tax invoice.
 
 ## 3. Architecture and technology decisions
 
-Use one Node.js/Express application written in TypeScript, one worker process from the same codebase, and PostgreSQL. The manual importer uses `pg` (node-postgres), versioned SQL migrations, the Node.js test runner and strict TypeScript checks. Use Node's built-in fetch for Meta. Node.js 24.12+ executes the seed TypeScript directly; package versions are pinned in the lockfile. Express will be added when the HTTP application is implemented. Python is not required for the backend or seeding; any future ML runtime is a separate decision.
+Use one Node.js/Express application written in TypeScript, one worker process from the same codebase, and PostgreSQL. The implementation uses `pg` (node-postgres), versioned SQL migrations, the Node.js test runner and strict TypeScript checks. Node's built-in fetch sends Meta requests. Node.js 24.12+ executes the TypeScript directly; package versions are pinned in the lockfile. Python is not required for the backend or seeding; any future ML runtime is a separate decision.
 
 Keep WhatsApp, catalog, inventory, orders and staff operations in separate modules. For this first deployment they share one application-owned schema and database transactions. This is an explicit initial-deployment simplification of the README's microservices proposal: there are no cross-service table writes because these modules are not independently deployed services. If extracted later, move ownership behind APIs/events and replace local transactions with compensation workflows.
 
@@ -54,7 +56,7 @@ Meta Cloud API --signed webhooks--> Express
 Authenticated staff interface --> same domain operations + audit trail
 ```
 
-Use PostgreSQL inbox/outbox tables for durable processing; no Redis, RabbitMQ, Kafka or Kubernetes initially. Claim jobs transactionally with leases so crashes do not leave work stuck. Serialize conversation changes per sender; do not hold database transactions open during external API calls.
+Use PostgreSQL inbox/outbox tables for durable processing; no Redis, RabbitMQ, Kafka or Kubernetes initially. Inbox processing holds row locks through its state/outbox transaction, so a crash rolls back and permits reprocessing. Outbound API calls use committed ownership leases: an expired send is uncertain and is not blindly resent. Serialize conversation changes per sender; do not hold database transactions open during external API calls.
 
 Planned implementation locations:
 
@@ -237,19 +239,120 @@ Target webhook acknowledgment p95 below one second under the agreed pilot load, 
 
 ## 12. Implementation sequence and completion criteria
 
-| Milestone | Work | Exit condition |
-| --- | --- | --- |
-| 0. Planning and data preparation | This plan; researched starter data for development/staging; settle pilot assumptions | Starter data reviewed for development, or user sheet mapped; missing business decisions documented before live use |
-| 1. Foundation and manual catalog | App/worker/PostgreSQL, migrations, safe configuration, synthetic test fixtures, explicit preview/apply importer | Sheet validates/imports manually; reapply safe; startup provably never seeds |
-| 2. WhatsApp transport | Meta test account setup, signatures, durable inbox/outbox, normalized identity and statuses | Authenticated text received and answered; duplicates and restart tested |
-| 3. Shopping conversation | Catalog-backed list parsing, clarifications, cart editing, delivery/pickup, quote and handoff | Representative lists from real catalog resolve transparently; stale prompts rejected |
-| 4. Orders and inventory | Atomic confirmation, reservation ledger, order status, staff operations | Final-unit race safe; repeated confirmation returns same order; staff fulfills/cancels correctly |
-| 5. Pilot readiness | Templates/consent, security checks, monitoring, backups, runbooks, live-number onboarding | Staff walkthrough and test-number acceptance pass; business rules and live account ready |
-| 6. Controlled live pilot | Store staff test first, then a small invited customer group | Review parsing failures, stock reconciliation, response times and support workload before expansion |
-| 7. Commerce completion | Selected hosted payment provider, verified callbacks/refunds, invoice requirements/PDF storage | Payment reconciliation and invoice authorization tested before enabling |
-| 8. Rest of platform | Web ordering, richer administration, extracted services if justified, analytics/ML | Reuse established catalog/order rules; do not duplicate checkout logic |
+The following is the active build order. Each stage must demonstrate its exit condition before the next stage is considered complete. This is a plan, not authorization to deploy or start sending real customer messages.
 
-No calendar commitment until the product sheet, Meta account readiness and required pilot scope are known. Provider verification and template approvals are external dependencies; continue local fixture-based work when those are pending after the implementation hold is lifted.
+### Stage 1: Express foundation and webhook transport
+
+Deliver:
+
+- Express 5 with strict TypeScript, separate application construction and listening entry point, validated configuration, structured/redacted logs, request IDs, liveness and database-readiness endpoints.
+- A runtime `pg` pool with a least-privileged application role; keep the migration owner separate. Set connection/query timeouts and size the pool to the database's connection allowance. Do not expose the database credential or source metadata to clients.
+- Extend the migration runner to apply numbered automation migrations while preserving migration `001` and its recorded checksum. The existing seed command remains an independent manual operation; neither server nor worker runs migrations or seeding on boot.
+- `GET /webhooks/whatsapp` verifies the subscription challenge. `POST /webhooks/whatsapp` captures the raw request buffer before JSON parsing, validates the signature and business/number scope, and commits normalized messages/status events into the durable inbox before returning success.
+- A Meta sender module using built-in `fetch`, configured API version and timeout; credentials are injected through environment configuration. Use a fake sender in ordinary tests and the Meta test number for the real integration check.
+
+Exit: valid test messages are persisted once; forged events produce no mutation; a database failure is not acknowledged as success. Health checks work and startup demonstrably never touches catalog/stock data.
+
+### Stage 2: Durable processing and a real reply
+
+Deliver:
+
+- A separately started worker that claims inbox rows with `FOR UPDATE SKIP LOCKED` and holds the conversation lock until its state/outbox commit. Outbound sends use ownership tokens and a lease; expired sends become uncertain rather than being reclaimed for automatic resend. Stale ownership tokens cannot complete the job.
+- One active processor per conversation. Persist the conversation transition, processed event and outbound intent in one transaction; external sends happen afterward. Keep outbound prompt order per conversation and suppress obsolete prompts after a cart/state change.
+- Scoped message deduplication, normalized sender identities with optional phone numbers, delivery-status history and bounded retries. Status callbacks never trigger a conversational reply by themselves.
+- A basic greeting/help reply, retry/failure visibility, safe shutdown and a pause switch. Explicitly distinguish accepted, delivered, read, failed and uncertain sends.
+
+Exit: a customer sends `hi` to the Meta test sender and receives the store greeting. Redelivering that inbound message or restarting the worker does not enqueue a second business reply. Unknown outcomes after outbound timeouts are flagged rather than blindly resent.
+
+### Stage 3: Catalog-backed shopping and cart
+
+Deliver:
+
+- Search the existing active variants, current prices, aliases and `on_hand_qty - reserved_qty`; never search the internet during an order.
+- A small deterministic parser for comma/newline-separated lists, explicit pack counts, brands and quantities. Normalize spelling/case and compatible mass/volume units. Ask when names, counts or units are unresolved.
+- Persist customers, conversations, carts, cart lines and outstanding choice prompts. Support `help`, `cart`, `remove`, `change`, `cancel`, `checkout`, `agent` and `stop` with state-aware responses.
+- Short numbered choices and supported interactive controls with text fallback. Bind every selection to sender, cart revision and current prompt. After three failed clarification attempts, offer staff handoff.
+- Build customer messages from an explicit allowlist: name, brand, SKU/variant label, pack count, availability, price and permitted actions. Never serialize `source_metadata`, `source_url` or `image_source_url` into replies or action URLs. Optional images use media URLs only; broken images fall back to text.
+
+Exit: shopping lists resolve to exact seeded SKUs, cart edits survive restart, and unknown items never create invented products. Required catalog edge cases:
+
+| Request | Expected behavior |
+| --- | --- |
+| `2 milk 1 l, 1 kg rice` | Offer the matching Amul 1 L and India Gate 1 kg variants, with exact brand/pack labels before confirmation |
+| `1 kg atta` | Explain that the seeded Aashirvaad SKU is 5 kg; ask whether to choose it or remove the item |
+| `1 litre sunflower oil` | Do not equate 870 g with 1 L; show the stocked pack and request acceptance |
+| `2 Vim bars` | Explain the stocked sellable pack is 4 x 190 g; do not charge for a single bar or assume two multipacks |
+| `banana` | Show that demo stock is zero; offer removal or a genuine catalog alternative only |
+| `soap` | Clarify bathing versus dishwashing if both are candidates; never substitute across purposes silently |
+
+### Stage 4: Checkout, reservations and order creation
+
+Deliver:
+
+- Collect pickup/delivery choice and required fulfillment details. Validate service area/hours and calculate configured fees. Use COD/pay-at-pickup for the first demo; do not mark these orders paid.
+- Create an immutable quote revision with a proposed 10-minute lifetime. Show all line quantities, exact packs, prices, tax treatment, fees, total, fulfillment details and payment method. Until real store tax/fee rules are configured, label the flow as a demo and block live checkout.
+- Store money as PostgreSQL `NUMERIC`; calculate TypeScript totals in integer paise using exact decimal-string conversion, with an explicit tax/rounding policy. Never use JavaScript floating-point prices for checkout.
+- A sender-bound, single-use quote confirmation key. Lock the cart/quote and affected stock rows in SKU order; revalidate price, stock, ownership, quote revision and expiration. Create one order, item snapshots, reservations and notification intent in the same transaction.
+- Apply the order transitions `PLACED -> ACCEPTED -> PICKING -> READY -> DISPATCHED -> DELIVERED` for delivery; pickup uses `READY -> COLLECTED`. Support explicit rejection/cancellation transitions and release stock once. A `PLACED` order has reserved stock but is awaiting store acceptance.
+- Keep reservation status separate: `ACTIVE -> CONSUMED` on dispatch/collection, or `ACTIVE -> RELEASED` on rejection/cancellation. Reservation/release changes `reserved_qty`; actual dispatch/collection reduces both on-hand and reserved quantities and adds one `sale` movement. Do not subtract stock twice.
+- Do not silently expire COD reservations under staff who are picking. Alert on unaccepted/stale orders and require the configured cancellation policy or staff decision. Post-dispatch returns are a separate recorded stock/payment workflow.
+
+Exit: two customers confirming the seeded final tomato pack produce one successful reservation; repeated confirmation returns the same order reference. A changed price, expired quote or edited cart forces a new summary. No payment success is inferred from a customer message.
+
+### Stage 5: Staff operations and customer updates
+
+Deliver:
+
+- A small authenticated staff surface for incoming orders, acceptance/rejection, picking, ready, dispatch/collection, delivery, cancellation and failed jobs. Use the project's hosted auth provider once its configuration is confirmed; verify identity/roles server-side and audit every mutation. Do not build a custom password system.
+- A handoff queue with a staff owner, transcript, reply capability, support hours and explicit bot resume. Automated shopping replies remain paused while a person owns the conversation.
+- Sender-authorized `status <order-reference>` and order status notifications. Subscribe to utility-template status changes where supported, and centralize permission/window/template checks for both staff and automated sends.
+- Consent records, opt-out handling, a support contact, minimal transcript retention and customer-data access restrictions. A customer sending `stop` must suppress queued proactive updates without silently canceling an order.
+
+Exit: staff fulfills or cancels a test order, stock follows the right transition exactly once, and the customer receives permitted updates. Cross-customer order access and stale/forged staff actions fail safely.
+
+### Stage 6: End-to-end validation and controlled pilot
+
+Deliver:
+
+- Test the full journey with Meta's test sender: shopping list -> clarification -> cart -> fulfillment details -> quote -> confirmation -> store acceptance -> fulfillment -> customer update.
+- Exercise duplicate and out-of-order events, lease expiry, restart, provider outage, slow database, stale buttons, opt-out, expired messaging window, invalid signatures, restricted staff access, final-unit contention and broken media. Assert that no outbound text/button contains retailer/source destinations.
+- Separate fake-provider tests, database integration tests and manually invoked real-Meta smoke tests. Keep demo checkout visibly separate from any production deployment.
+- Provision HTTPS, secrets, approved templates, alerting, backup/restore and an incident runbook. Pause new automated orders during an incident while preserving securely accepted events where possible.
+- Staff trial first; then a small invited customer pilot only after prices, stock, fees, taxes, delivery rules, support ownership and privacy requirements are approved for that environment.
+
+Exit: the acceptance matrix in section 11 passes, the store can operate the staff workflow, recovery has been exercised, and no critical messaging or inventory errors remain. Measure response time and queue age during the pilot before increasing volume.
+
+### Database work after migration 001
+
+| Proposed migration | Main additions | Important constraint |
+| --- | --- | --- |
+| `002_whatsapp_transport` | Scoped WhatsApp identities, inbox events, outbound jobs and delivery status history | Unique inbound event keys; unique business-effect/outbound-intent keys; job lease ownership |
+| `003_conversations_cart` | Customers, conversations, cart lines and choice prompts | One active cart per conversation; positive integer pack counts; version-bound choices |
+| `004_checkout_orders` | Quotes, quote lines, orders, immutable order lines, reservation records and status history | One order per confirmed quote; nonnegative stock; unique reserve/consume/release operations |
+| `005_staff_consent_audit` | Staff authorization mappings, handoff ownership, communication permissions and audit events | Object/role authorization; explicit support ownership; permission checks at send time |
+
+Names are planned until implementation. Add the migrations when their stage needs them rather than creating unused tables now. Extend the existing catalog tables; do not reseed, rename SKUs, or rewrite migration 001. Keep `grocery_dev` for this demo; production needs a separate reviewed schema/environment and real store data.
+
+### Runtime/API contracts to implement
+
+| Boundary | Contract |
+| --- | --- |
+| Public webhook | `GET /webhooks/whatsapp`, `POST /webhooks/whatsapp` |
+| Operational health | `GET /health/live`, `GET /health/ready` with minimal responses |
+| Catalog | Internal `searchCatalog(query)` returns a safe variant projection, current price and availability |
+| Conversation | Internal `handleMessage(event)` persists a state transition and outbound intents atomically |
+| Checkout | Internal `createQuote(cartRevision)` and `confirmQuote(sender, quote, actionToken)` |
+| Staff | Protected order listing/transitions, handoff claim/reply/resume and failed-job review; no unrestricted public send endpoint |
+
+Keep WhatsApp formatting outside catalog/order logic so a later website reuses checkout. Runtime commands `npm run dev`, `npm start` and `npm run worker` are implemented. The explicit `npm run db:migrate` command applies numbered migrations with checksums; migration 002 adds transport state. `npm run seed` remains a separate operator command. Fake-message, queue-status and definitive-failure retry commands are documented in the setup guide.
+
+### External setup and outstanding business inputs
+
+Local fixtures allow stages 1-4 to progress without live messaging credentials. A real Meta round trip in stages 1-2 needs a configured test sender/recipient, business-account and phone-number IDs, app secret, verify token, access token, supported API version and a reachable HTTPS callback. Do not paste credentials into chat; add them through environment configuration when implementing.
+
+Before pilot: settle store name/contact, support owner/hours, language expectations, pickup address, delivery area, fee/minimum, tax policy, COD acceptance, staff acceptance/cancellation rules and expected volume. These do not block fixture-based development; they do block an honest live checkout.
+
+The first concrete implementation slice is **stages 1 and 2: receive a verified message, persist it, and send one reliable test reply**. The fake-provider path is implemented; the real Meta smoke test and runtime credential provisioning remain exit checks. Catalog-backed shopping is the next feature slice. Online payment, invoice PDFs, voice/photo interpretation, marketing, customer website and predictive inventory follow after the ordering pilot.
 
 ## 13. Costs, rollout and recovery
 
@@ -275,3 +378,5 @@ Defaults in this document allow planning to proceed, but customer-facing rules m
 ## 15. Source verification limits
 
 Checked official Meta policy/pricing pages, Meta's Cloud API collection, Meta's usernames briefing and its historical SDK reference on 28 October 2026. Some developer documentation pages returned HTTP 429 during planning. Exact current Graph API version, webhook schema, retry horizon, account-specific limits, number coexistence eligibility and template approvals remain implementation setup checks. This plan does not claim those account-specific checks have passed.
+
+For the planning revision, rechecked the [Meta Cloud API setup collection](https://www.postman.com/meta/whatsapp-business-platform/collection/wlk6lh4/whatsapp-cloud-api), [current messaging policy](https://whatsappbusiness.com/policy/) and [Express 5 API reference](https://expressjs.com/en/5x/api/express/). During implementation, migration 002 was explicitly applied and fake-provider HTTP/database checks were run. Meta account access and a real test-message exchange have not been verified; no real customer messages have been sent.

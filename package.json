@@ -9,14 +9,21 @@
   "scripts": {
     "seed": "node scripts/seed-groceries.ts",
     "seed:preview": "node scripts/seed-groceries.ts --preview",
-    "db:migrate": "node scripts/seed-groceries.ts --init-schema",
+    "db:migrate": "node scripts/migrate.ts",
+    "dev": "node --watch app/server.ts",
+    "start": "node app/server.ts",
+    "worker": "node app/worker.ts",
+    "whatsapp:status": "node scripts/whatsapp-status.ts",
+    "whatsapp:fake-message": "node scripts/send-test-webhook.ts",
     "test": "node --test tests/*.test.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "express": "5.3.0",
     "pg": "8.23.1"
   },
   "devDependencies": {
+    "@types/express": "5.0.6",
     "@types/node": "24.19.2",
     "@types/pg": "8.23.1",
     "typescript": "7.0.2"

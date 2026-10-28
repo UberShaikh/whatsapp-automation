@@ -8,5 +8,5 @@
     "verbatimModuleSyntax": true,
     "erasableSyntaxOnly": true
   },
-  "include": ["scripts/**/*.ts", "tests/**/*.ts"]
+  "include": ["app/**/*.ts", "scripts/**/*.ts", "tests/**/*.ts"]
 }

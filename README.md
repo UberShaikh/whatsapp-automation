@@ -19,6 +19,10 @@ stockout risk.
 > [Indian household grocery seed dataset](data/seed/README.md) is available
 > for development/staging; its manual PostgreSQL importer is implemented.
 > The 33-product demo catalog is seeded in the isolated `grocery_dev` schema.
+> The Express webhook receiver and durable worker are implemented for the
+> first transport slice. See [WhatsApp setup](docs/whatsapp-setup.md) for
+> fake-mode testing, manual migrations, runtime commands and Meta test setup.
+> The real Meta round trip still needs account credentials and an HTTPS callback.
 > Source product links are internal references and will never redirect customers
 > from WhatsApp. Product seeding will be a separate manual preview/apply
 > operation and will never run on server startup.
