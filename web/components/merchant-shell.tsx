@@ -1,0 +1,20 @@
+'use client';
+import { useState } from 'react';
+import Link from 'next/link';
+import { Clock3,LogOut,Menu,Package,Store,UserRound } from 'lucide-react';
+import { Brand } from './brand';
+import { Button } from './ui/button';
+import { Sheet,SheetContent,SheetTitle,SheetTrigger,SheetDescription } from './ui/sheet';
+import { Separator } from './ui/separator';
+import { signOut } from '@/app/auth/actions';
+import { cn } from '@/lib/utils';
+import type { View } from '@/lib/workspace';
+const navigation=[{view:'inventory' as const,label:'Inventory',icon:Package,href:'/inventory'},{view:'history' as const,label:'Stock history',icon:Clock3,href:'/history'},{view:'account' as const,label:'Account',icon:UserRound,href:'/account'}];
+export function MerchantShell({view,name,preview,onViewChange,children}:{view:View;name:string;preview:boolean;onViewChange:(v:View)=>void;children:React.ReactNode}) {
+  const [mobile,setMobile]=useState(false);
+  const nav=<><div className="flex h-20 items-center px-6"><Brand /></div><nav aria-label="Merchant navigation" className="flex flex-col gap-1 px-3 pt-1">{navigation.map(({view:key,label,icon:Icon,href})=>{
+    const className=cn('flex h-11 items-center gap-3 rounded-md px-3 text-sm font-medium transition-colors hover:bg-muted',view===key && 'bg-accent text-primary');
+    return preview?<button key={key} className={className} aria-current={view===key?'page':undefined} onClick={()=>{onViewChange(key);setMobile(false);}}><Icon className="size-5" strokeWidth={1.7} />{label}</button>:<Link key={key} href={href} prefetch={false} className={className} aria-current={view===key?'page':undefined} onClick={()=>setMobile(false)}><Icon className="size-5" strokeWidth={1.7} />{label}</Link>;
+  })}</nav><div className="mt-auto"><Separator /><div className="flex items-center gap-3 px-6 py-5"><Store className="size-5 text-muted-foreground" /><div><p className="text-sm font-medium">Demo store</p><p className="mt-1 text-xs text-muted-foreground">DEMO-STORE</p></div></div>{preview?<Link href="/login" className="mx-3 mb-4 flex h-10 items-center gap-3 rounded-md px-3 text-sm hover:bg-muted"><LogOut className="size-5" />Sign in</Link>:<form action={signOut}><Button type="submit" variant="ghost" className="mx-3 mb-4 w-[calc(100%-1.5rem)] justify-start"><LogOut data-icon="inline-start" />Sign out</Button></form>}</div></>;
+  return <div className="flex min-h-dvh"><a className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-background focus:p-3" href="#main">Skip to content</a><aside className="fixed inset-y-0 hidden w-64 flex-col border-r bg-sidebar lg:flex">{nav}</aside><div className="min-w-0 flex-1 lg:pl-64"><header className="flex h-14 items-center gap-3 border-b px-4 md:px-6"><Sheet open={mobile} onOpenChange={setMobile}><SheetTrigger asChild><Button variant="ghost" size="icon" className="lg:hidden" aria-label="Open navigation"><Menu /></Button></SheetTrigger><SheetContent side="left" className="flex w-64 flex-col gap-0 p-0"><SheetTitle className="sr-only">Merchant navigation</SheetTitle><SheetDescription className="sr-only">Manage your store inventory and account.</SheetDescription>{nav}</SheetContent></Sheet><p className="flex items-center gap-3 text-[13px]"><span className="text-muted-foreground">Store</span><span className="text-border">/</span>{navigation.find(n=>n.view===view)?.label}</p><div className="ml-auto flex items-center gap-2"><span className="flex size-7 items-center justify-center rounded-full bg-muted text-xs font-medium" aria-hidden>{name.slice(0,1).toUpperCase()}</span><span className="max-w-36 truncate text-[13px]">{name}</span></div></header>{preview?<div className="border-b bg-accent px-4 py-2 text-xs leading-5 md:px-6">Preview — stock changes stay in this browser. <Link className="font-medium text-primary underline underline-offset-2" href="/login">Sign in</Link> to manage store stock.</div>:null}<main id="main" className="min-w-0 p-4 md:p-6">{children}</main></div></div>;
+}

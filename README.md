@@ -20,12 +20,21 @@ stockout risk.
 > for development/staging; its manual PostgreSQL importer is implemented.
 > The 33-product demo catalog is seeded in the isolated `grocery_dev` schema.
 > The Express webhook receiver and durable worker are implemented for the
-> first transport slice. See [WhatsApp setup](docs/whatsapp-setup.md) for
+> first transport slice. Catalog-backed shopping, product clarification and
+> persistent demo carts, confirmed demo pickup orders and atomic stock holds are implemented.
+> Pickup lifecycle commands support acceptance, picking, readiness, collection and cancellation.
+> See [WhatsApp setup](docs/whatsapp-setup.md) for
 > fake-mode testing, manual migrations, runtime commands and Meta test setup.
 > The real Meta round trip still needs account credentials and an HTTPS callback.
 > Source product links are internal references and will never redirect customers
 > from WhatsApp. Product seeding will be a separate manual preview/apply
 > operation and will never run on server startup.
+
+> **Merchant frontend:** Inventory, stock adjustments/history and account screens now use
+> Next.js, Tailwind v4 and shadcn following [STYLE.md](STYLE.md). Supabase handles
+> merchant signup/sign-in; approved store access is granted explicitly. See
+> [merchant setup](docs/merchant-setup.md). Run `npm run web:preview` for the local
+> UI preview; its stock changes stay in the browser.
 
 ------------------------------------------------------------------------
 

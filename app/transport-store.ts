@@ -2,6 +2,8 @@ import type { Pool, PoolClient } from 'pg';
 import { transaction } from './db.ts';
 import type { Config } from './config.ts';
 import type { Event, StatusEvent } from './whatsapp.ts';
+import { shoppingReply } from './shopping.ts';
+import { checkoutReply } from './checkout.ts';
 
 async function applyStatus(db: PoolClient,event: StatusEvent) {
   await db.query(`INSERT INTO grocery_dev.wa_status_events
@@ -45,12 +47,14 @@ export async function ingestEvents(pool: Pool,events: Event[]) {
 function replyFor(body: string,type: string,config: Config,mode: string) {
   const command=body.trim().toLowerCase();
   if (command==='stop') return 'Order updates are stopped. You can still request HELP. Reply RESUME to allow future order updates.';
-  if (command==='resume') return 'Future order updates are allowed. This demo does not accept orders yet. Reply HELP for support.';
+  if (command==='resume') return 'Future order updates are allowed. You can build a demo cart and review CHECKOUT for demo pickup. Reply HELP for support.';
   if (command==='agent') return `For human assistance: ${config.supportContact} Automated shopping replies are paused for this conversation.`;
-  if (command==='help') return `${config.storeName}: this demo currently supports greetings and help only. Shopping and checkout are not available yet. Human assistance: ${config.supportContact}`;
+  if (command==='help') return `${config.storeName}: send up to 10 items, for example 2 milk 1 l, 1 kg rice. Use CART, CHANGE <line> <packs>, REMOVE <line>, CANCEL, or CHOICES. Follow the code shown to CHOOSE, REPLACE or SKIP an unclear item. CHECKOUT reviews demo pickup; CONFIRM <code> reserves stock. STATUS [order reference] checks progress; CANCEL ORDER <reference> cancels before picking. ${mode==='HUMAN_HANDOFF'?'Automated shopping is paused; your saved cart is retained. ':''}Human assistance: ${config.supportContact}`;
+  if (/^verify [a-f0-9]{16}$/.test(command)) return `Verification received: ${command.slice(7)}. This is a demo delivery check, not an order.`;
   if (mode==='HUMAN_HANDOFF') return null;
-  if (type==='text' && /^(hi|hello|hey|namaste)[!. ]*$/.test(command)) return `Welcome to ${config.storeName}. This is a demo; shopping and checkout are not available yet. Reply HELP for support or STOP to stop future order updates.`;
-  return `This demo cannot process ${type==='text'?'shopping requests':'media messages'} yet. Reply HELP or AGENT for assistance.`;
+  if (type!=='text') return 'Please send a text shopping list. Media ordering is not available yet. Reply HELP or AGENT for assistance.';
+  if (/^(hi|hello|hey|namaste)[!. ]*$/.test(command)) return `Welcome to ${config.storeName}. Send a shopping list such as 2 milk 1 l, 1 kg rice, or reply CART. CHECKOUT reviews demo pickup and pay-at-pickup. Reply HELP for instructions or STOP to stop future order updates.`;
+  return undefined;
 }
 
 export async function processNextMessage(pool: Pool,config: Config) {
@@ -74,8 +78,15 @@ export async function processNextMessage(pool: Pool,config: Config) {
         return true;
       }
     }
-    const mode=command==='agent'?'HUMAN_HANDOFF':event.mode;
-    const body=replyFor(event.body,event.message_type,config,event.mode);
+    let mode=command==='agent'?'HUMAN_HANDOFF':event.mode;
+    const checkout=event.message_type==='text'?await checkoutReply(db,event.identity_id,event.body,event.occurred_at,config,event.mode):undefined;
+    let body=checkout??replyFor(event.body,event.message_type,config,event.mode);
+    if (body===undefined) {
+      const reply=await shoppingReply(db,event.identity_id,event.body,event.occurred_at);
+      body=reply.body;
+      if (reply.handoff) {mode='HUMAN_HANDOFF';body+=` Human assistance: ${config.supportContact}`;}
+      if (body.length>4096) body='Your demo cart is saved. Reply CART for its contents or CHOICES for the current choice.';
+    }
     if (body===null) {
       await db.query('UPDATE grocery_dev.wa_inbox SET processed_at=now() WHERE id=$1',[event.id]);
       return true;

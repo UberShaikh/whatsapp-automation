@@ -1,15 +1,15 @@
 # WhatsApp automation: implementation plan
 
-Status: catalog/manual seeding complete; the first WhatsApp transport slice is implemented. Shopping/checkout and the real Meta smoke test remain pending.
+Status: catalog/manual seeding, WhatsApp transport, phase 2 catalog/cart and demo pickup checkout with atomic stock holds are implemented. Real Meta delivery verification awaits configured credentials, public callback and a genuine test-recipient message.
 Prepared: 28 October 2026.
 
 ## 1. Objective and current position
 
 Deliver the README's grocery ordering experience through WhatsApp first. A customer sends a shopping list, resolves ambiguities, reviews exact variants and totals, explicitly confirms, and receives an order reference and fulfillment updates. Staff can intervene safely.
 
-The repository has a working TypeScript manual importer, versioned PostgreSQL catalog/inventory migration and seed tests. The database contains 33 product variants, 33 current prices and 792 demo sellable packs in `grocery_dev`. Express, verified webhook intake, the durable inbox/outbox, worker, basic greeting/help/opt-out replies, support pause and delivery-status handling are implemented; see the [setup and operating guide](whatsapp-setup.md). Real Meta account credentials and HTTPS callback configuration are not present, so real delivery is unverified. Catalog shopping, carts, orders and authenticated staff controls remain next. Seeding is finished and is not part of server startup.
+The repository has a working TypeScript manual importer, versioned PostgreSQL catalog/inventory migration and seed tests. The database contains 33 product variants, 33 current prices and 792 demo sellable packs in `grocery_dev`. Express, verified webhook intake, durable processing, support/opt-out handling, catalog shopping, carts and demo pickup checkout are implemented; see the [setup and operating guide](whatsapp-setup.md). Pickup orders support expiring quotes, explicit confirmation, atomic reservations, cancellation/release, audited operator transitions and collection/stock consumption. Real Meta delivery and authenticated staff UI remain outstanding. Seeding is finished and is not part of server startup.
 
-**Current stage:** the manual seeding foundation is implemented; the WhatsApp application has not started. At the user's subsequent request, a researched [Indian household grocery starter dataset and manual importer](../data/seed/README.md) are available for development/staging in an isolated `grocery_dev` PostgreSQL schema, with internal source references, external media URLs and explicitly invented demo stock. The user's later sheet can replace it after mapping and review. Product seeding must be an explicit manual operation; it must never run during application startup, worker startup, deployment, or schema migration.
+**Current stage:** stage 4 now has demo pickup/pay-at-pickup checkout and operator CLI controls. Production fulfillment, taxes, payments and a staff UI remain gated on real business rules. The researched [Indian household grocery starter dataset and manual importer](../data/seed/README.md) remain development/staging data in `grocery_dev`, with internal source references and explicitly invented demo stock. The user's later sheet can replace it after mapping and review. Product seeding remains an explicit manual operation; it never runs during application startup, worker startup, deployment or schema migration.
 
 **Customer navigation rule:** retailer/source URLs are internal provenance only. Never send them as WhatsApp links, buttons or redirects. External image URLs are for media retrieval only; if an image fails, send text-only product details. Product selection, cart and order confirmation stay in this store's conversation.
 
@@ -287,6 +287,8 @@ Exit: shopping lists resolve to exact seeded SKUs, cart edits survive restart, a
 
 ### Stage 4: Checkout, reservations and order creation
 
+Implemented slice: demo pickup only, pay-at-pickup, 10-minute quotes, atomic confirmation/holds, customer status/cancellation and a scoped operator CLI. Delivery and real store fees/taxes remain future work. `DEMO_CASH_RECORDED` is an explicit operator test acknowledgement, never payment-provider proof. Inventory rows lock in stable variant UUID order. Holds require operator review rather than automatic expiry once confirmed.
+
 Deliver:
 
 - Collect pickup/delivery choice and required fulfillment details. Validate service area/hours and calculate configured fees. Use COD/pay-at-pickup for the first demo; do not mark these orders paid.
@@ -352,7 +354,7 @@ Local fixtures allow stages 1-4 to progress without live messaging credentials. 
 
 Before pilot: settle store name/contact, support owner/hours, language expectations, pickup address, delivery area, fee/minimum, tax policy, COD acceptance, staff acceptance/cancellation rules and expected volume. These do not block fixture-based development; they do block an honest live checkout.
 
-The first concrete implementation slice is **stages 1 and 2: receive a verified message, persist it, and send one reliable test reply**. The fake-provider path is implemented; the real Meta smoke test and runtime credential provisioning remain exit checks. Catalog-backed shopping is the next feature slice. Online payment, invoice PDFs, voice/photo interpretation, marketing, customer website and predictive inventory follow after the ordering pilot.
+The first implementation slice (stages 1-2) established durable transport. Phase 2 added stage 3 text-based catalog/cart workflow via migration 003. Migration 004 implements stage 4 demo pickup quotes, order snapshots, stock holds, lifecycle audit and sale movements on collection. Quote lines and order lines use immutable JSON snapshots; stock reservations and history remain relational. The real Meta smoke test and runtime credential provisioning remain release checks. Online payment, invoice PDFs, voice/photo interpretation, marketing, customer website and predictive inventory follow after the ordering pilot.
 
 ## 13. Costs, rollout and recovery
 

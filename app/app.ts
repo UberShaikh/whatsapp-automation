@@ -22,7 +22,7 @@ export function createApp(config: Config,services: Services) {
   });
   app.get('/health/live',(_req,res)=>res.json({status:'alive'}));
   app.get('/health/ready',async (_req,res)=>{
-    try { await services.ready(); res.json({status:'ready',automation_paused:config.paused}); }
+    try { await services.ready(); res.json({status:'ready',automation_paused:config.paused,transport_mode:config.mode}); }
     catch { res.status(503).json({status:'not_ready'}); }
   });
   app.get('/webhooks/whatsapp',(req,res)=>{

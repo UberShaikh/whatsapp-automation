@@ -23,6 +23,6 @@ export async function transaction<T>(pool: Pool, work: (db: PoolClient)=>Promise
 }
 
 export async function assertSchema(pool: Pool) {
-  const { rows }=await pool.query("SELECT version FROM grocery_dev.schema_migrations WHERE version IN ('001','002')");
-  if (rows.length !== 2) throw new Error('Run npm run db:migrate explicitly before starting the runtime');
+  const { rows }=await pool.query("SELECT version FROM grocery_dev.schema_migrations WHERE version IN ('001','002','003','004')");
+  if (rows.length !== 4) throw new Error('Run npm run db:migrate explicitly before starting the runtime');
 }
